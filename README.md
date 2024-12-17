@@ -1,71 +1,159 @@
 Descrição
-Este código em Python calcula o parcelamento de um valor total em um número definido de meses, exibindo as datas de vencimento e os valores de cada parcela. Ele também informa o total do empréstimo e o número de meses/anos necessários para quitá-lo.
 
-Funcionalidades
-Solicita o valor do produto e o número de meses para parcelamento.
-Calcula a data de cada parcela a partir da data atual.
-Divide o valor total igualmente entre as parcelas.
-Exibe as datas e valores de cada parcela.
-Mostra um resumo com o valor total, tempo de pagamento e valor de cada parcela.
-Como Executar
-Certifique-se de que Python 3.x esteja instalado em sua máquina.
-Instale a biblioteca dateutil se ainda não estiver instalada:
+Este programa em Python calcula o parcelamento de um valor total em um número definido de meses. Ele exibe as datas de vencimento e o valor de cada parcela, além de fornecer um resumo detalhado do empréstimo ou compra parcelada.
+
+Como Funciona
+
+O usuário insere:
+
+O valor total do produto.
+
+O número de meses para parcelar o pagamento.
+
+O programa calcula:
+
+As datas de vencimento de cada parcela a partir da data atual.
+
+O valor de cada parcela dividindo o valor total pelo número de parcelas.
+
+O programa exibe:
+
+As datas e valores de cada parcela.
+
+Um resumo com o valor total, o tempo de pagamento (em anos e meses) e o valor de cada parcela.
+
+Como Usar
+
+1. Pré-requisitos
+
+Python 3.x instalado.
+
+Biblioteca python-dateutil instalada. Para instalar:
+
 bash
+
 Copiar código
+
 pip install python-dateutil
-Salve o código em um arquivo, por exemplo, parcelamento.py.
-Execute o programa:
+
+1. Executando o Programa
+
+Copie o código abaixo e cole em um arquivo chamado parcelamento.py.
+
+python
+
+Copiar código
+
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
+
+valor\_total = float(input("Valor Do produto: "))
+
+data\_emprestimo = datetime.now()
+
+months = int(input("Digite em quantos Meses Voce quer parcelar: "))
+
+delta\_meses = relativedelta(months=months)
+
+data\_final = data\_emprestimo + delta\_meses
+
+data\_parcelas = []
+
+data\_parcela = data\_emprestimo
+
+while data\_parcela < data\_final:
+
+data\_parcelas.append(data\_parcela)
+
+data\_parcela += relativedelta(months=+1)
+
+numero\_parcelas = len(data\_parcelas)
+
+valor\_parcela = valor\_total / numero\_parcelas
+
+for data in data\_parcelas:
+
+print(data.strftime('%d/%m/%Y'), f'R$ {valor\_parcela:,.2f}')
+
+print()
+
+print(
+
+f'Você pegou R$ {valor\_total:,.2f} para pagar '
+
+f'em {delta\_meses.years} anos '
+
+f'({numero\_parcelas} meses) em parcelas de '
+
+f'R$ {valor\_parcela:,.2f}.'
+
+)
+
+No terminal ou prompt de comando, execute o arquivo:
+
 bash
+
 Copiar código
+
 python parcelamento.py
-Exemplo de Uso
-Ao executar o programa, você verá as seguintes solicitações no terminal:
+
+Insira os valores solicitados, como no exemplo:
 
 plaintext
+
 Copiar código
+
 Valor Do produto: 1200
+
 Digite em quantos Meses Voce quer parcelar: 12
-O programa exibirá as datas e valores de cada parcela:
+
+Exemplo de Saída
+
+Ao rodar o programa com os valores de entrada acima, ele retornará:
 
 plaintext
+
 Copiar código
+
 16/12/2024 R$ 100,00
+
 16/01/2025 R$ 100,00
+
+16/02/2025 R$ 100,00
+
 ...
+
 16/11/2025 R$ 100,00
-Por fim, mostrará um resumo do parcelamento:
 
-plaintext
-Copiar código
 Você pegou R$ 1.200,00 para pagar em 1 anos (12 meses) em parcelas de R$ 100,00.
-Entradas
-valor_total: Valor total do produto ou empréstimo.
-months: Número de meses para parcelar.
-Saídas
-Lista das datas de vencimento de cada parcela com seus respectivos valores.
-Resumo detalhado com o valor total, número de meses/anos e valor de cada parcela.
-Pré-requisitos
-Python 3.x.
-Biblioteca dateutil.
-Explicação do Código
-Importação de Bibliotecas:
 
-datetime e dateutil.relativedelta são usados para lidar com datas e calcular intervalos mensais.
-Cálculo das Datas de Parcelas:
+Detalhes Técnicos
 
-Usa a data atual (datetime.now()) como ponto inicial e incrementa mês a mês até atingir o número de meses desejado.
-Cálculo do Valor das Parcelas:
+Entrada:
 
-Divide o valor total pelo número de parcelas.
-Exibição das Parcelas:
+Valor Do produto: Valor total a ser parcelado.
 
-Mostra as datas no formato DD/MM/YYYY e os valores formatados com duas casas decimais.
-Resumo Final:
+Digite em quantos Meses Voce quer parcelar: Quantidade de meses para dividir o valor.
 
-Apresenta os detalhes do empréstimo de forma clara e estruturada.
+Saída:
+
+Datas e valores de cada parcela.
+
+Resumo com valor total, número de meses/anos e valor das parcelas.
+
 Possíveis Melhorias
-Adicionar juros no cálculo das parcelas.
-Permitir entrada de uma data inicial diferente da data atual.
-Exportar as informações para um arquivo (CSV ou PDF).
+
+Adicionar cálculos de juros.
+
+Permitir uma data inicial personalizada (diferente da data atual).
+
+Exportar os resultados para um arquivo CSV ou PDF.
+
+Licença
+
+Este código é livre para uso e modificação. Sinta-se à vontade para adaptar conforme suas necessidades.
+
 Autor: Felipe Reges de
-Data: Dezembro de 2024
+
+Data de Criação: Dezembro de 2024
